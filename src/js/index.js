@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 // include your styles into the webpack bundle
 import "../styles/index.css";
-import Home from "./component/home";
+//import Home from "./component/home";
 
 function SimpleCounter(props){
     return (
@@ -28,14 +28,14 @@ SimpleCounter.proptypes = {
 
 let counter = 0;
 setInterval(function(){
-    const four = Math.floor(counter/10000);
-    const three = Math.floor(counter/1000);
-    const two = Math.floor(counter/100);
-    const one = Math.floor(counter/10);
+    const four = Math.floor(counter/1000);
+    const three = Math.floor(counter/100);
+    const two = Math.floor(counter/10);
+    const one = Math.floor(counter);
     counter ++;
    
 
     //render your react application
-    ReactDOM.render(< SimpleCounter digitOne={one} digittwo={two} digitthree={three} digitfour={four} />, document.querySelector("#app"));
+    ReactDOM.render(< SimpleCounter digitOne={one} digitTwo={two} digitThree={three} digitFour={four} />, document.querySelector('#app'));
 
 },1000);
