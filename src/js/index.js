@@ -10,33 +10,53 @@ function SimpleCounter(props) {
 
 
     const parar = () => {
-        stop=1
+        stop = true
     }
     const reanudar = () => {
-        stop=0
+        stop = false
     }
     const reset = () => {
-        counter=0
-        stop=0
+        counter = 0
+        stop = false
+        atras = false
+        document.getElementById('atras').value = null
+    }
+
+    const regresiva = () => {
+        if (document.getElementById('atras').value.match(/^[0-9]+$/)) {
+            counter = document.getElementById('atras').value
+            atras = true
+        }
     }
 
 
     return (
+        <span id="caja">
+            <div className="cajaContador">
+                <div className="elem">
+                    <i className="fas fa-clock"></i>
+                </div>
+                <div className="elem">{props.digitFour % 10}</div>
+                <div className="elem">{props.digitThree % 10}</div>
+                <div className="elem">{props.digitTwo % 10}</div>
+                <div className="elem">{props.digitOne % 10}</div>
 
-        <div className="CajaContador">
-            <div className="cuadros">
-                <i className="fas fa-clock"></i>
             </div>
-            <div className="four">{props.digitFour % 10}</div>
-            <div className="three">{props.digitThree % 10}</div>
-            <div className="two">{props.digitTwo % 10}</div>
-            <div className="one">{props.digitOne % 10}</div>
-            <span id="botones">
+            <div id="botones">
                 <button onClick={parar} className="btn">Parar</button>
                 <button onClick={reanudar} className="btn">Reanudar</button>
                 <button onClick={reset} className="btn">Reset</button>
-            </span>
-        </div>);
+            </div>
+
+            <div className="regresiva">
+                <input type="text" id="atras" />
+            </div>
+            <button onClick={regresiva} className="btn">Cuenta atrás</button>
+
+        </span>
+
+
+    );
 }
 
 
@@ -48,17 +68,31 @@ SimpleCounter.proptypes = {
 };
 
 let counter = 0;
-let stop=0;
+let stop = false;
+let atras = false;
 setInterval(function () {
-    if(stop == 0){
+    if ( stop== false  && atras == false ) {
         const four = Math.floor(counter / 1000);
         const three = Math.floor(counter / 100);
         const two = Math.floor(counter / 10);
         const one = Math.floor(counter);
         counter++;
-        
+
+
+        //render your react application
+        ReactDOM.render(< SimpleCounter digitOne={one} digitTwo={two} digitThree={three} digitFour={four} />, document.querySelector('#app'));
+    }
+    else if ( stop == false && atras == true ) {
+        const four = Math.floor(counter / 1000);
+        const three = Math.floor(counter / 100);
+        const two = Math.floor(counter / 10);
+        const one = Math.floor(counter);
+        counter--;
+
 
         //render your react application
         ReactDOM.render(< SimpleCounter digitOne={one} digitTwo={two} digitThree={three} digitFour={four} />, document.querySelector('#app'));
     }
 }, 1000);
+
+
